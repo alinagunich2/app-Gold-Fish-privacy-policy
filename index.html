@@ -420,7 +420,7 @@
         </div>
         <div class="meta-card">
           <span class="meta-label">Contact</span>
-          <div class="meta-value"><a href="mailto:supportFishGold@gmail.com">supportFishGold@gmail.com</a></div>
+          <div class="meta-value"><a data-support-email href="#"></a></div>
         </div>
       </div>
     </section>
@@ -508,7 +508,7 @@
         </p>
         <p>
           For privacy-related questions, contact us at
-          <a href="mailto:supportFishGold@gmail.com">supportFishGold@gmail.com</a>.
+          <a data-support-email href="#"></a>.
         </p>
       </section>
 
@@ -533,13 +533,19 @@
   <footer class="site-footer shell">
     <div class="footer-inner fineprint">
       <div><strong>FishGold</strong> — privacy policy for the mobile application.</div>
-      <div>Contact: <a href="mailto:supportFishGold@gmail.com">supportFishGold@gmail.com</a></div>
+      <div>Contact: <a data-support-email href="#"></a></div>
       <div>© <span id="year"></span> FishGold</div>
     </div>
   </footer>
 
   <script>
+    const FISHGOLD_SUPPORT_EMAIL = 'alinka.gunich9@gmail.com';
+
     document.getElementById('year').textContent = String(new Date().getFullYear());
+    document.querySelectorAll('[data-support-email]').forEach((link) => {
+      link.href = 'mailto:' + FISHGOLD_SUPPORT_EMAIL;
+      link.textContent = FISHGOLD_SUPPORT_EMAIL;
+    });
   </script>
 </body>
 </html>
