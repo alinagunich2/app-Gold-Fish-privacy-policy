@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#141008" />
+  <link rel="icon" href="title.png" type="image/png" sizes="512x512" />
+  <link rel="apple-touch-icon" href="title.png" />
+  <title>Политика конфиденциальности — FishGold</title>
+  <meta
+    name="description"
+    content="Политика конфиденциальности мобильного приложения FishGold: прогноз погоды и расчётный прогноз клёва по сохранённым точкам на карте."
+  />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #141008;
+      --surface: #fffbf5;
+      --text: #1c150f;
+      --muted: #5c4a3d;
+      --border: rgba(120, 72, 24, 0.18);
+      --accent: #c2410c;
+      --accent-bright: #ea580c;
+      --accent-weak: rgba(194, 65, 12, 0.1);
+      --shadow: 0 10px 30px rgba(40, 20, 8, 0.18);
+      --radius: 14px;
+      --maxw: 900px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-16: 64px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-padding-top: 0.75rem;
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding-left: env(safe-area-inset-left, 0);
+      padding-right: env(safe-area-inset-right, 0);
+      padding-bottom: env(safe-area-inset-bottom, 0);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji",
+        "Segoe UI Emoji";
+      font-size: clamp(15px, 2.8vw, 17px);
+      line-height: 1.65;
+      overflow-x: clip;
+      background:
+        radial-gradient(1200px 600px at 18% -8%, rgba(234, 179, 8, 0.28), transparent 58%),
+        radial-gradient(900px 520px at 92% 5%, rgba(194, 65, 12, 0.22), transparent 52%),
+        radial-gradient(700px 400px at 50% 100%, rgba(180, 83, 9, 0.15), transparent 45%),
+        var(--bg);
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    .prose a,
+    main a {
+      color: var(--accent);
+      text-decoration-thickness: 0.08em;
+      overflow-wrap: anywhere;
+    }
+
+    .prose a:hover,
+    main a:hover {
+      color: var(--accent-bright);
+      text-decoration: underline;
+    }
+
+    p,
+    li {
+      text-wrap: pretty;
+    }
+
+    h1,
+    h2 {
+      text-wrap: balance;
+    }
+
+    .shell {
+      --gutter: clamp(14px, 4.2vw, 40px);
+      width: min(100% - 2 * var(--gutter), calc(var(--maxw) + 2 * var(--gutter)));
+      max-width: 100%;
+      margin-inline: auto;
+      padding-inline: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 10px;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      color: var(--text);
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      left: 10px;
+    }
+
+    .site-header {
+      padding: clamp(18px, 4vw, 28px) 0 clamp(8px, 2vw, 10px);
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: clamp(10px, 2.5vw, 14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: clamp(10px, 2.5vw, 14px);
+      min-width: 0;
+    }
+
+    @media (min-width: 720px) {
+      .brand {
+        align-items: center;
+      }
+    }
+
+    .logo-box {
+      flex-shrink: 0;
+      width: clamp(44px, 10vw, 52px);
+      height: clamp(44px, 10vw, 52px);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: var(--shadow), 0 0 0 1px rgba(254, 215, 170, 0.25) inset;
+      border: 1px solid rgba(254, 215, 170, 0.35);
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .brand-text {
+      min-width: 0;
+      flex: 1 1 12rem;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff8f0;
+      font-size: clamp(16px, 4.2vw, 18px);
+      line-height: 1.2;
+    }
+
+    .brand-note {
+      color: rgba(255, 244, 232, 0.75);
+      font-size: clamp(12px, 3.2vw, 13px);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    main {
+      padding: clamp(8px, 2vw, 16px) 0 var(--space-16);
+    }
+
+    .hero {
+      background: var(--surface);
+      margin: 0 auto clamp(12px, 3vw, 18px);
+      padding: clamp(18px, 4vw, 28px) clamp(14px, 3.5vw, 34px);
+      border: 1px solid var(--border);
+      border-radius: clamp(10px, 2vw, var(--radius));
+      box-shadow: var(--shadow);
+      max-width: 100%;
+      color: var(--text);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--accent-weak);
+      color: var(--text);
+      font-size: clamp(0.72rem, 2vw, 0.8rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.35rem, 5.5vw, 2.25rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #141008;
+      word-wrap: break-word;
+      max-width: none;
+    }
+
+    .hero > p {
+      margin: 0;
+      color: var(--text);
+      font-size: inherit;
+      line-height: inherit;
+      max-width: none;
+    }
+
+    .hero > p strong {
+      font-weight: 700;
+    }
+
+    .meta-grid {
+      display: grid;
+      gap: clamp(8px, 2vw, 10px);
+      padding: clamp(10px, 2.5vw, 14px);
+      border: 1px dashed rgba(154, 52, 18, 0.28);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(217, 119, 6, 0.08), rgba(255, 251, 245, 0));
+      margin-top: var(--space-6);
+    }
+
+    .meta-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.2rem;
+    }
+
+    @media (min-width: 540px) {
+      .meta-card {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0 0.35rem;
+      }
+    }
+
+    .meta-label {
+      color: var(--muted);
+      font-size: clamp(0.8rem, 2.2vw, 0.875rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    @media (min-width: 540px) {
+      .meta-label {
+        flex: 0 0 auto;
+        margin-right: 6px;
+        white-space: nowrap;
+      }
+
+      .meta-value {
+        flex: 1 1 12rem;
+        min-width: 0;
+      }
+    }
+
+    .meta-value {
+      font-weight: 600;
+      min-width: 0;
+      word-wrap: break-word;
+      color: var(--text);
+    }
+
+    .stack {
+      display: grid;
+      gap: clamp(12px, 3vw, 18px);
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: clamp(10px, 2vw, var(--radius));
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 4vw, 26px) clamp(14px, 3.5vw, 28px);
+      color: var(--text);
+    }
+
+    .section-card h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1rem, 3.2vw, 1.25rem);
+      letter-spacing: -0.02em;
+      color: #431407;
+      line-height: 1.25;
+      word-wrap: break-word;
+    }
+
+    .section-card p {
+      margin: 8px 0 0;
+      max-width: none;
+    }
+
+    .section-card p:first-of-type {
+      margin-top: 0;
+    }
+
+    .section-card ul,
+    .section-card ol {
+      margin: 10px 0 0;
+      padding-left: clamp(1.1rem, 4vw, 1.4rem);
+    }
+
+    .section-card li + li {
+      margin-top: 6px;
+    }
+
+    .callout-inline {
+      margin-top: 12px;
+      padding: clamp(10px, 2.5vw, 12px);
+      border-radius: 12px;
+      border: 1px solid rgba(194, 65, 12, 0.28);
+      background: linear-gradient(180deg, rgba(251, 191, 36, 0.12), rgba(194, 65, 12, 0.06));
+      color: var(--muted);
+    }
+
+    .site-footer {
+      padding: clamp(16px, 3vw, 22px) 0 calc(28px + env(safe-area-inset-bottom, 0));
+      color: rgba(255, 248, 240, 0.82);
+    }
+
+    .site-footer a {
+      color: rgba(251, 191, 36, 0.95);
+      text-decoration-thickness: 0.08em;
+    }
+
+    .site-footer a:hover {
+      color: #fde68a;
+      text-decoration: underline;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .fineprint {
+      color: rgba(255, 235, 210, 0.65);
+      font-size: clamp(12px, 2.8vw, 13px);
+      line-height: 1.45;
+    }
+
+    .fineprint strong {
+      color: rgba(255, 248, 240, 0.92);
+    }
+
+    @media (max-width: 680px) {
+      .brand-note {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <header class="site-header shell">
+    <div class="header-row">
+      <div class="brand">
+        <div class="logo-box">
+          <img src="title.png" alt="FishGold" width="52" height="52" decoding="async" />
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">FishGold</div>
+          <div class="brand-note">Прогноз погоды и расчётный прогноз клёва для планирования рыбалки</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="shell">
+    <section class="hero">
+      <div class="eyebrow">FishGold • Privacy Policy</div>
+      <h1>Политика конфиденциальности</h1>
+      <p>
+        Настоящая политика описывает, как мобильное приложение <strong>FishGold</strong> обрабатывает данные при его использовании. Приложение предназначено для планирования рыбалки: пользователь сохраняет места на карте, по координатам этих мест приложение запрашивает погодные данные и показывает <strong>расчётный прогноз клёва</strong> по видам рыб; интервал и шаг показа (в том числе почасово) зависят от версии приложения и выбранного тарифа.
+      </p>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <span class="meta-label">Последнее обновление</span>
+          <div class="meta-value">4 мая 2026 г.</div>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Контакт</span>
+          <div class="meta-value"><a href="mailto:supportFishGold@gmail.com">supportFishGold@gmail.com</a></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="stack">
+      <section class="section-card" aria-labelledby="s1">
+        <h2 id="s1">1. Общие положения</h2>
+        <p>
+          Политика применяется к мобильному приложению FishGold. Приложение помогает пользователю сохранять точки рыбалки, просматривать
+          карту, получать прогноз погоды по выбранной точке и видеть расчётный прогноз клёва по отдельным видам рыб.
+        </p>
+        <p>
+          Доступ к части функций приложения может зависеть от выбранного тарифа.
+        </p>
+      </section>
+
+      <section class="section-card" aria-labelledby="s2">
+        <h2 id="s2">2. Какие данные обрабатываются</h2>
+        <p>
+          Состав данных зависит от того, какие функции приложения вы используете и какие разрешения предоставляете.
+        </p>
+        <ol>
+          <li><strong>Сохранённые точки на карте.</strong> Координаты выбранных пользователем мест и связанные с ними данные, например название точки.</li>
+          <li>
+            <strong>Геолокация устройства.</strong>
+            При предоставлении разрешения приложение может использовать текущее местоположение пользователя
+            для работы карты и выбора мест рыбалки.
+            Доступ к геолокации можно отключить в настройках устройства.
+          </li>         
+          <li><strong>Погодные данные.</strong> По координатам сохранённой точки приложение запрашивает погодную информацию у внешнего поставщика погодных данных.</li>
+          <li><strong>Данные о подписке.</strong> При оформлении подписки могут обрабатываться сведения о статусе доступа, сроке действия подписки и технические идентификаторы покупки.</li>
+          <li><strong>Технические данные.</strong> При работе приложения могут обрабатываться сведения, необходимые для загрузки карты, выполнения сетевых запросов, обеспечения стабильности и безопасности работы.</li>
+          <li><strong>Локально сохранённые данные.</strong> Часть информации хранится локально во внутреннем хранилище приложения на устройстве пользователя, включая координаты, параметры точек, загруженные погодные данные и данные, необходимые для отображения прогноза клёва.</li>
+        </ol>
+      </section>
+
+      <section class="section-card" aria-labelledby="s3">
+        <h2 id="s3">3. Внешние сервисы</h2>
+        <p>
+          Для работы отдельных функций приложение может использовать сторонние сервисы и платформы.
+        </p>
+        <ul>
+          <li><strong>Картографический сервис</strong> — для отображения карты, маркеров и взаимодействия с географическими объектами.</li>
+          <li><strong>Поставщик погодных данных</strong> — для получения погодной информации по координатам выбранной точки.</li>
+        </ul>
+        <p class="callout-inline">
+          Указанные сторонние сервисы могут обрабатывать данные в соответствии со своими собственными политиками конфиденциальности.
+        </p>
+      </section>
+
+      <section class="section-card" aria-labelledby="s4">
+        <h2 id="s4">4. Передача данных</h2>
+        <p>
+          Мы не продаём персональные данные пользователей. Передача данных третьим лицам возможна только в случаях,
+          когда это необходимо для работы функций приложения или требуется по закону.
+        </p>
+        <ul>
+          <li>Координаты точки могут передаваться сервису погоды для получения прогноза.</li>
+          <li>Данные, связанные с отображением карты, могут обрабатываться картографическим сервисом.</li>
+          <li>Данные, связанные с подпиской, могут обрабатываться магазинами приложений (оформление, продление и учёт покупок).</li>
+          <li>Для проверки и синхронизации статуса подписки технические данные покупки и доступа могут передаваться и обрабатываться сторонним сервисом управления подписками, через который приложение сверяет статус доступа с магазинами приложений.</li>
+        </ul>
+      </section>
+
+      <section class="section-card" aria-labelledby="s5">
+        <h2 id="s5">5. Хранение данных</h2>
+        <p>
+          Значительная часть данных хранится локально на устройстве пользователя во внутреннем хранилище приложения.
+          Это относится, в частности, к сохранённым координатам, параметрам точек,
+          загруженным погодным данным и данным, используемым для отображения прогноза клёва.
+        </p>
+        <p>
+          Данные хранятся столько, сколько это необходимо для работы приложения, если более длительный срок
+          не требуется законодательством или правилами сторонних платформ.
+        </p>
+        <p>
+          При удалении приложения локально сохранённые данные обычно удаляются вместе с приложением, однако история
+          покупок и подписок может храниться у Apple, Google или иных сервисов по их собственным правилам.
+        </p>
+      </section>
+
+      <section class="section-card" aria-labelledby="s6">
+        <h2 id="s6">6. Права пользователя</h2>
+        <p>
+          В зависимости от применимого законодательства пользователь может иметь право запросить информацию
+          об обработке данных, их исправление, удаление, ограничение обработки, а также отозвать ранее
+          предоставленные разрешения, например доступ к геолокации.
+        </p>
+        <p>
+          По вопросам, связанным с обработкой данных, вы можете написать на адрес
+          <a href="mailto:supportFishGold@gmail.com">supportFishGold@gmail.com</a>.
+        </p>
+      </section>
+
+      <section class="section-card" aria-labelledby="s7">
+        <h2 id="s7">7. Несовершеннолетние</h2>
+        <p>
+          Приложение не содержит контента для взрослых и может использоваться широкой аудиторией. Однако оформление
+          подписок, платежей и иные действия, для которых по закону требуется согласие родителей или законных
+          представителей, должны осуществляться с соблюдением применимого законодательства и правил платформы.
+        </p>
+      </section>
+
+      <section class="section-card" aria-labelledby="s8">
+        <h2 id="s8">8. Изменение политики</h2>
+        <p>
+          Мы можем обновлять настоящую политику при изменении функций приложения, состава используемых сервисов
+          или требований законодательства. Актуальная версия политики публикуется по тому же адресу, где размещён
+          этот документ.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer shell">
+    <div class="footer-inner fineprint">
+      <div><strong>FishGold</strong> — политика конфиденциальности мобильного приложения.</div>
+      <div>Контакт: <a href="mailto:supportFishGold@gmail.com">supportFishGold@gmail.com</a></div>
+      <div>© <span id="year"></span> FishGold</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>
